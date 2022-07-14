@@ -1,0 +1,211 @@
+import socket
+from multiprocessing import Process
+
+store_item = [["F1", "Nasi Lemak Ayam", 7],
+              ["F2", "Laksa Penang", 8],
+              ["F3", "Nasi Kerabu", 9],
+              ["F4", "Nasi Ayam", 5],
+              ["F5", "Laksa Lemak", 5],
+              ["D1", "Puding Caramel", 5],
+              ["D2", "Cekmek Molek", 4],
+              ["D3", "Cha Bang Ang", 7],
+              ["D4", "Lai Chi Kang", 7],
+              ["W1", "Bandung Strawberi Laici", 5],
+              ["W2", "Sirap Bandung Tembikai", 6],
+              ["W3", "Soya Cincau", 5],
+              ["W4", "Mineral Water(Spritzer)", 3],
+             ]
+
+
+def process_start(s_sock):
+    s_sock.send(str.encode('WELCOME TO PAITON CAFE'))
+    total = 0
+    while True:
+     takeOrder = s_sock.recv(2048)
+     if (str(takeOrder.decode()) == '1'):
+      print("\n")
+      print("Want To: Take Order")
+      while True:
+       menuCode = s_sock.recv(2048)
+       if (str(menuCode.decode()) == "F1"):
+        print("MENU ORDERED:", store_item[0][1])
+        price = store_item[0][2]
+        menuQuantity = s_sock.recv(2048)
+        intQuantity = int(menuQuantity)
+        print("Quantity: ", intQuantity)
+        total = total + (price * intQuantity)
+        continueInput = s_sock.recv(2048)
+        if (str(continueInput.decode()) == 'Y'):
+          break
+
+       elif (str(menuCode.decode()) == "F2"):
+        print("MENU ORDERED:", store_item[1][1])
+        price = store_item[1][2]
+        menuQuantity = s_sock.recv(2048)
+        intQuantity = int(menuQuantity)
+        print("Quantity: ", intQuantity)
+        total = total + (price * intQuantity)
+        continueInput = s_sock.recv(2048)
+        if (str(continueInput.decode()) == 'Y'):
+          break
+
+       elif (str(menuCode.decode()) == "F3"):
+        print("MENU ORDERED:", store_item[2][1])
+        price = store_item[2][2]
+        menuQuantity = s_sock.recv(2048)
+        intQuantity = int(menuQuantity)
+        print("Quantity: ", intQuantity)
+        total = total + (price * intQuantity)
+        continueInput = s_sock.recv(2048)
+        if (str(continueInput.decode()) == 'Y'):
+          break
+
+       elif (str(menuCode.decode()) == "F4"):
+        print("MENU ORDERED:", store_item[3][1])
+        price = store_item[3][2]
+        menuQuantity = s_sock.recv(2048)
+        intQuantity = int(menuQuantity)
+        print("Quantity: ", intQuantity)
+        total = total + (price * intQuantity)
+        continueInput = s_sock.recv(2048)
+        if (str(continueInput.decode()) == 'Y'):
+          break
+
+       elif (str(menuCode.decode()) == "F5"):
+        print("MENU ORDERED:", store_item[4][1])
+        price = store_item[4][2]
+        menuQuantity = s_sock.recv(2048)
+        intQuantity = int(menuQuantity)
+        print("Quantity: ", intQuantity)
+        total = total + (price * intQuantity)
+        continueInput = s_sock.recv(2048)
+        if (str(continueInput.decode()) == 'Y'):
+          break
+
+       elif (str(menuCode.decode()) == "D1"):
+        print("MENU ORDERED:", store_item[5][1])
+        price = store_item[5][2]
+        menuQuantity = s_sock.recv(2048)
+        intQuantity = int(menuQuantity)
+        print("Quantity: ", intQuantity)
+        total = total + (price * intQuantity)
+        continueInput = s_sock.recv(2048)
+        if (str(continueInput.decode()) == 'Y'):
+          break
+
+       elif (str(menuCode.decode()) == "D2"):
+        print("MENU ORDERED:", store_item[6][1])
+        price = store_item[6][2]
+        menuQuantity = s_sock.recv(2048)
+        intQuantity = int(menuQuantity)
+        print("Quantity: ", intQuantity)
+        total = total + (price * intQuantity)
+        continueInput = s_sock.recv(2048)
+        if (str(continueInput.decode()) == 'Y'):
+          break
+
+       elif (str(menuCode.decode()) == "D3"):
+        print("MENU ORDERED:", store_item[7][1])
+        price = store_item[7][2]
+        menuQuantity = s_sock.recv(2048)
+        intQuantity = int(menuQuantity)
+        print("Quantity: ", intQuantity)
+        total = total + (price * intQuantity)
+        continueInput = s_sock.recv(2048)
+        if (str(continueInput.decode()) == 'Y'):
+          break
+
+       elif (str(menuCode.decode()) == "D4"):
+        print("MENU ORDERED:", store_item[8][1])
+        price = store_item[8][2]
+        menuQuantity = s_sock.recv(2048)
+        intQuantity = int(menuQuantity)
+        print("Quantity: ", intQuantity)
+        total = total + (price * intQuantity)
+        continueInput = s_sock.recv(2048)
+        if (str(continueInput.decode()) == 'Y'):
+          break
+
+       elif (str(menuCode.decode()) == "W1"):
+        print("MENU ORDERED:", store_item[9][1])
+        price = store_item[9][2]
+        menuQuantity = s_sock.recv(2048)
+        intQuantity = int(menuQuantity)
+        print("Quantity: ", intQuantity)
+        total = total + (price * intQuantity)
+        continueInput = s_sock.recv(2048)
+        if (str(continueInput.decode()) == 'Y'):
+          break
+
+       elif (str(menuCode.decode()) == "W2"):
+        print("MENU ORDERED:", store_item[10][1])
+        price = store_item[10][2]
+        menuQuantity = s_sock.recv(2048)
+        intQuantity = int(menuQuantity)
+        print("Quantity: ", intQuantity)
+        total = total + (price * intQuantity)
+        continueInput = s_sock.recv(2048)
+        if (str(continueInput.decode()) == 'Y'):
+          break
+
+       elif (str(menuCode.decode()) == "W3"):
+        print("MENU ORDERED:", store_item[11][1])
+        price = store_item[11][2]
+        menuQuantity = s_sock.recv(2048)
+        intQuantity = int(menuQuantity)
+        print("Quantity: ", intQuantity)
+        total = total + (price * intQuantity)
+        continueInput = s_sock.recv(2048)
+        if (str(continueInput.decode()) == 'Y'):
+          break
+
+       elif (str(menuCode.decode()) == "W4"):
+        print("MENU ORDERED:", store_item[12][1])
+        price = store_item[12][2]
+        menuQuantity = s_sock.recv(2048)
+        intQuantity = int(menuQuantity)
+        print("Quantity: ", intQuantity)
+        total = total + (price * intQuantity)
+        continueInput = s_sock.recv(2048)
+        if (str(continueInput.decode()) == 'Y'):
+          break
+
+       else:
+        print("MENU NOT IN THE LIST!")
+        break
+
+     elif (str(takeOrder.decode()) == '2'):
+       print("\n")
+       print("Want To: View The Total")
+       print("Total Price:RM ", total)
+       s_sock.send(bytes(str(total), 'utf-8'))
+       cash = s_sock.recv(2048)
+       intCash = int(cash)
+       balance = intCash - total
+       print("Your Balance: ", balance)
+       s_sock.send(bytes(str(balance), 'utf-8'))
+       break
+
+     else:   #selain take order == 1
+      print("\n")
+      print("Want To: Exit")
+      print("Disconnected from" + str(s_addr))
+      break
+      s.close()
+
+if __name__ == '__main__':
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.bind(("",8888))
+    print("I am Waiting...")
+    s.listen(5)
+    try:
+     while True:
+       try:
+         s_sock, s_addr = s.accept()
+         print("Get Connection From " + str(s_addr))
+         p = Process (target = process_start, args = (s_sock, ))
+         p.start()
+       except socket.error:
+          print('Got A Socket Error')
+    except Exception as e:
+          print('An Exception Occured!')
