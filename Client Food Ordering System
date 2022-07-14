@@ -1,0 +1,147 @@
+import socket
+import random
+import time
+store_item = [["F1", "Nasi Lemak Ayam", 7],
+              ["F2", "Laksa Penang", 8],
+              ["F3", "Nasi Kerabu", 9],
+              ["F4", "Nasi Ayam", 5],
+              ["F5", "Laksa Lemak", 5],
+              ["D1", "Puding Caramel", 5],
+              ["D2", "Cekmek Molek", 4],
+              ["D3", "Cha Bang Ang", 7],
+              ["D4", "Lai Chi Kang", 7],
+              ["W1", "Bandung Strawberi Laici", 5],
+              ["W2", "Sirap Bandung Tembikai", 6],
+              ["W3", "Soya Cincau", 5],
+              ["W4", "Mineral Water(Spritzer)", 3],
+             ]
+clientSocket = socket.socket()
+host = '192.168.121.8'
+port = 8888
+counter = 0
+print('Waiting The Server To Accept Me')
+try:
+  clientSocket.connect((host, port))
+except socket.error as e:
+  print(str(e))
+
+greeting = clientSocket.recv(2048)
+print("\n")
+print("*********************************")
+print("    ",greeting.decode())
+print("*********************************")
+print("\n")
+cashierName = input('Enter Your Name:')
+
+while True:   #after print greeting word
+
+  nextOrder = True
+  print("\n")
+  print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+  print(" Hello Beautiful",cashierName, "<3")
+  print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+  print("\n")
+  print("Press 1 To Take Order")
+  print("Press 2 To View Total Price")
+  print("Press Any Keboard To Exit")
+  print("=============================")
+  print("\n")
+  Input1 = input('Enter Your Decision:')
+  clientSocket.send(str.encode(Input1))
+  if Input1 == '1':
+    print("\n")
+    print("{:>5}{:>25}{:>10}".format("CODE", "ITEM", "PRICE"))
+    for item in store_item:
+     print("{:>5}{:>25}{:>10}".format(*item))
+    while nextOrder == True:
+       print("\n")
+       InputCode = input('ENTER CODE:')
+       clientSocket.send(str.encode(InputCode))
+       if InputCode == "F1":
+         name = store_item[0][1]
+         price = store_item[0][2]
+       elif InputCode == "F2":
+         name = store_item[1][1]
+         price = store_item[1][2]
+       elif InputCode == "F3":
+         name = store_item[2][1]
+         price = store_item[2][2]
+       elif InputCode == "F4":
+         name = store_item[3][1]
+         price = store_item[3][2]
+       elif InputCode == "F5":
+         name = store_item[4][1]
+         price = store_item[4][2]
+       elif InputCode == "D1":
+         name = store_item[5][1]
+         price = store_item[5][2]
+       elif InputCode == "D2":
+         name = store_item[6][1]
+         price = store_item[6][2]
+       elif InputCode == "D3":
+         name = store_item[7][1]
+         price = store_item[7][2]
+       elif InputCode == "D4":
+         name = store_item[8][1]
+         price = store_item[8][2]
+       elif InputCode == "W1":
+         name = store_item[9][1]
+         price = store_item[9][2]
+       elif InputCode == "W2":
+         name = store_item[10][1]
+         price = store_item[10][2]
+       elif InputCode == "W3":
+         name = store_item[11][1]
+         price = store_item[11][2]
+       elif InputCode == "W4":
+         name = store_item[12][1]
+         price = store_item[12][2]
+       else:
+         print("MENU IS NOT IN THE LIST!")
+         break
+       InputQuantity = input('ENTER QUANTITY:')
+       print("\n")
+       print("YOUR ORDER:", name)
+       print("PRICE:RM", price, "X",InputQuantity)
+       clientSocket.send(str.encode(InputQuantity))
+       print("\n")
+       ContinueInput = input('FINISH?(Y/N):')
+       clientSocket.send(str.encode(ContinueInput))
+       if ContinueInput == 'Y':
+        break
+
+  elif Input1 == '2':
+    n = random.randint(1,9982)
+    localtime = time.asctime(time.localtime(time.time()))
+    print("\n")
+    print("========  PAITON CAFE  =======")
+    print("Lot FS, 1st Floor, Food Street")
+    print("IOI Mall, Batu 9, Jalan Puchong")
+    print("       Bandar Puchong Jaya    ")
+    print("       47170, Puchong Jaya    ")
+    print("===============================")
+    print("\n")
+    print(localtime)
+    print("ORDER NO.",(n))
+    print("CASHIER:",(cashierName))
+    totalprice = clientSocket.recv(2048)
+    print("\n")
+    print("*******************************")
+    print("\n")
+    print("NET TOTAL:RM", totalprice.decode('utf-8'))
+    InputCash = input('ENTER CASH TENDERED:RM')
+    clientSocket.send(str.encode(InputCash))
+    balance = clientSocket.recv(2048)
+    print("\n")
+    print("*******************************")
+    print("\n")
+    print("YOUR BALANCE:RM", balance.decode('utf-8'))
+    print("THANK YOU. PLEASE COME AGAIN!")
+    print("\n")
+    print("*******************************")
+    break
+  else:
+    print("\n")
+    print("Bye Bye. See You Again!")
+    break
+    clientSocket.close()
